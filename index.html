@@ -7,44 +7,43 @@
 
 <style>
 :root {
-    --primary: #0d0d0d;
-    --secondary: #1a1a1a;
-    --accent: #b30000;
+    --bg: #0d0d0d;
+    --card: #1a1a1a;
+    --accent: #e60023;
     --text: #ffffff;
 }
 
 body {
     margin: 0;
-    font-family: Arial;
-    background: var(--primary);
+    font-family: 'Segoe UI', sans-serif;
+    background: var(--bg);
     color: var(--text);
 }
 
 /* HEADER */
 header {
-    text-align: center;
-    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
     background: black;
-    border-bottom: 2px solid var(--accent);
+    border-bottom: 1px solid #222;
 }
 
 header h1 {
     color: var(--accent);
-}
-
-/* NAV */
-nav {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    padding: 10px;
-    background: #111;
+    margin: 0;
 }
 
 /* HERO */
 .hero {
     text-align: center;
-    padding: 50px;
+    padding: 60px 20px;
+}
+
+.hero h2 {
+    font-size: 2.5rem;
+    color: var(--accent);
 }
 
 /* FILTER */
@@ -54,35 +53,67 @@ nav {
 }
 
 .filter button {
+    background: #222;
+    color: white;
+    border: none;
+    padding: 10px 15px;
     margin: 5px;
+    cursor: pointer;
+    border-radius: 20px;
+}
+
+.filter button:hover {
+    background: var(--accent);
 }
 
 /* PRODUCTS */
 .products {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 15px;
-    padding: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 25px;
+    padding: 20px 40px;
 }
 
 .product {
-    background: var(--secondary);
-    padding: 15px;
-    border-radius: 10px;
-    text-align: center;
+    background: var(--card);
+    border-radius: 15px;
+    overflow: hidden;
+    transition: 0.3s;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+}
+
+.product:hover {
+    transform: translateY(-8px);
 }
 
 .product img {
     width: 100%;
+    height: 220px;
+    object-fit: cover;
 }
 
-/* BUTTON */
+.product-info {
+    padding: 15px;
+}
+
+.product-info h3 {
+    margin: 0;
+}
+
+.price {
+    color: var(--accent);
+    margin: 8px 0;
+    font-weight: bold;
+}
+
 button {
+    width: 100%;
+    padding: 10px;
+    border: none;
     background: var(--accent);
     color: white;
-    border: none;
-    padding: 10px;
     cursor: pointer;
+    border-radius: 5px;
 }
 
 /* FOOTER */
@@ -90,6 +121,7 @@ footer {
     text-align: center;
     padding: 20px;
     background: black;
+    margin-top: 30px;
 }
 </style>
 </head>
@@ -97,20 +129,14 @@ footer {
 <body>
 
 <header>
-    <!-- LOGO SPACE -->
     <h1>Thriftify</h1>
 </header>
 
-<nav>
-    <a href="#">Home</a>
-    <a href="#">Shop</a>
-</nav>
-
 <div class="hero">
-    <h2>Thrift Smart. Walk Bold.</h2>
+    <h2>Step Into Style</h2>
+    <p>Premium thrifted shoes at unbeatable prices</p>
 </div>
 
-<!-- FILTER -->
 <div class="filter">
     <button onclick="filter('all')">All</button>
     <button onclick="filter('Nike')">Nike</button>
@@ -118,7 +144,6 @@ footer {
     <button onclick="filter('Puma')">Puma</button>
 </div>
 
-<!-- PRODUCTS -->
 <div class="products" id="products"></div>
 
 <footer>
@@ -128,27 +153,97 @@ footer {
 <script>
 let phone = "923232876811";
 
-/* 15 PRODUCTS */
 let items = [
-{name:"Nike Air Max", price:"PKR 3500", brand:"Nike"},
-{name:"Nike Runner", price:"PKR 2800", brand:"Nike"},
-{name:"Nike Street", price:"PKR 3000", brand:"Nike"},
-
-{name:"Adidas Boost", price:"PKR 4000", brand:"Adidas"},
-{name:"Adidas Lite", price:"PKR 3200", brand:"Adidas"},
-{name:"Adidas Classic", price:"PKR 2900", brand:"Adidas"},
-
-{name:"Puma Sport", price:"PKR 2700", brand:"Puma"},
-{name:"Puma X", price:"PKR 3100", brand:"Puma"},
-{name:"Puma Flex", price:"PKR 2600", brand:"Puma"},
-
-{name:"Casual Sneaker", price:"PKR 2000", brand:"Other"},
-{name:"Street Wear", price:"PKR 2200", brand:"Other"},
-{name:"Daily Comfort", price:"PKR 1800", brand:"Other"},
-
-{name:"Runner Pro", price:"PKR 3300", brand:"Nike"},
-{name:"Ultra Boost", price:"PKR 4200", brand:"Adidas"},
-{name:"Speed Cat", price:"PKR 3000", brand:"Puma"}
+{
+name:"Nike Air Max",
+price:"PKR 3500",
+brand:"Nike",
+img:"https://images.unsplash.com/photo-1542291026-7eec264c27ff"
+},
+{
+name:"Nike Runner",
+price:"PKR 2800",
+brand:"Nike",
+img:"https://images.unsplash.com/photo-1600185365483-26d7a4cc7519"
+},
+{
+name:"Adidas Boost",
+price:"PKR 4000",
+brand:"Adidas",
+img:"https://images.unsplash.com/photo-1519741497674-611481863552"
+},
+{
+name:"Adidas Classic",
+price:"PKR 2900",
+brand:"Adidas",
+img:"https://images.unsplash.com/photo-1528701800489-20be3c6f1a7f"
+},
+{
+name:"Puma Sport",
+price:"PKR 2700",
+brand:"Puma",
+img:"https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a"
+},
+{
+name:"Puma Flex",
+price:"PKR 2600",
+brand:"Puma",
+img:"https://images.unsplash.com/photo-1608231387042-66d1773070a5"
+},
+{
+name:"Casual Sneaker",
+price:"PKR 2000",
+brand:"Other",
+img:"https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77"
+},
+{
+name:"Street Wear",
+price:"PKR 2200",
+brand:"Other",
+img:"https://images.unsplash.com/photo-1584735175097-719d848f8449"
+},
+{
+name:"Daily Comfort",
+price:"PKR 1800",
+brand:"Other",
+img:"https://images.unsplash.com/photo-1517260911058-0fcfd733702f"
+},
+{
+name:"Runner Pro",
+price:"PKR 3300",
+brand:"Nike",
+img:"https://images.unsplash.com/photo-1543508282-6319a3e2621f"
+},
+{
+name:"Ultra Boost",
+price:"PKR 4200",
+brand:"Adidas",
+img:"https://images.unsplash.com/photo-1600180758890-6b94519a8ba6"
+},
+{
+name:"Speed Cat",
+price:"PKR 3000",
+brand:"Puma",
+img:"https://images.unsplash.com/photo-1552346154-21d32810aba3"
+},
+{
+name:"Urban Sneaker",
+price:"PKR 2400",
+brand:"Other",
+img:"https://images.unsplash.com/photo-1491553895911-0055eca6402d"
+},
+{
+name:"Flex Run",
+price:"PKR 2600",
+brand:"Nike",
+img:"https://images.unsplash.com/photo-1600185365926-3a2ce3cdb9eb"
+},
+{
+name:"Comfort Boost",
+price:"PKR 3100",
+brand:"Adidas",
+img:"https://images.unsplash.com/photo-1608231387042-66d1773070a5"
+}
 ];
 
 function display(list) {
@@ -158,21 +253,20 @@ function display(list) {
     list.forEach(item => {
         container.innerHTML += `
         <div class="product">
-            <img src="https://via.placeholder.com/200">
-            <h3>${item.name}</h3>
-            <p>${item.price}</p>
-            <button onclick="order('${item.name}')">Order</button>
+            <img src="${item.img}">
+            <div class="product-info">
+                <h3>${item.name}</h3>
+                <p class="price">${item.price}</p>
+                <button onclick="order('${item.name}')">Order on WhatsApp</button>
+            </div>
         </div>
         `;
     });
 }
 
 function filter(brand) {
-    if(brand === "all") {
-        display(items);
-    } else {
-        display(items.filter(i => i.brand === brand));
-    }
+    if(brand === "all") display(items);
+    else display(items.filter(i => i.brand === brand));
 }
 
 function order(product) {
