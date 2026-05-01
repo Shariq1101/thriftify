@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thriftify</title>
+
+<style>
+:root {
+    --primary: #0d0d0d;
+    --secondary: #1a1a1a;
+    --accent: #b30000;
+    --text: #ffffff;
+}
+
+body {
+    margin: 0;
+    font-family: Arial;
+    background: var(--primary);
+    color: var(--text);
+}
+
+/* HEADER */
+header {
+    text-align: center;
+    padding: 20px;
+    background: black;
+    border-bottom: 2px solid var(--accent);
+}
+
+header h1 {
+    color: var(--accent);
+}
+
+/* NAV */
+nav {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 10px;
+    background: #111;
+}
+
+/* HERO */
+.hero {
+    text-align: center;
+    padding: 50px;
+}
+
+/* FILTER */
+.filter {
+    text-align: center;
+    margin: 20px;
+}
+
+.filter button {
+    margin: 5px;
+}
+
+/* PRODUCTS */
+.products {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    padding: 20px;
+}
+
+.product {
+    background: var(--secondary);
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.product img {
+    width: 100%;
+}
+
+/* BUTTON */
+button {
+    background: var(--accent);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+}
+
+/* FOOTER */
+footer {
+    text-align: center;
+    padding: 20px;
+    background: black;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <!-- LOGO SPACE -->
+    <h1>Thriftify</h1>
+</header>
+
+<nav>
+    <a href="#">Home</a>
+    <a href="#">Shop</a>
+</nav>
+
+<div class="hero">
+    <h2>Thrift Smart. Walk Bold.</h2>
+</div>
+
+<!-- FILTER -->
+<div class="filter">
+    <button onclick="filter('all')">All</button>
+    <button onclick="filter('Nike')">Nike</button>
+    <button onclick="filter('Adidas')">Adidas</button>
+    <button onclick="filter('Puma')">Puma</button>
+</div>
+
+<!-- PRODUCTS -->
+<div class="products" id="products"></div>
+
+<footer>
+    <p>© 2026 Thriftify</p>
+</footer>
+
+<script>
+let phone = "923232876811";
+
+/* 15 PRODUCTS */
+let items = [
+{name:"Nike Air Max", price:"PKR 3500", brand:"Nike"},
+{name:"Nike Runner", price:"PKR 2800", brand:"Nike"},
+{name:"Nike Street", price:"PKR 3000", brand:"Nike"},
+
+{name:"Adidas Boost", price:"PKR 4000", brand:"Adidas"},
+{name:"Adidas Lite", price:"PKR 3200", brand:"Adidas"},
+{name:"Adidas Classic", price:"PKR 2900", brand:"Adidas"},
+
+{name:"Puma Sport", price:"PKR 2700", brand:"Puma"},
+{name:"Puma X", price:"PKR 3100", brand:"Puma"},
+{name:"Puma Flex", price:"PKR 2600", brand:"Puma"},
+
+{name:"Casual Sneaker", price:"PKR 2000", brand:"Other"},
+{name:"Street Wear", price:"PKR 2200", brand:"Other"},
+{name:"Daily Comfort", price:"PKR 1800", brand:"Other"},
+
+{name:"Runner Pro", price:"PKR 3300", brand:"Nike"},
+{name:"Ultra Boost", price:"PKR 4200", brand:"Adidas"},
+{name:"Speed Cat", price:"PKR 3000", brand:"Puma"}
+];
+
+function display(list) {
+    let container = document.getElementById("products");
+    container.innerHTML = "";
+
+    list.forEach(item => {
+        container.innerHTML += `
+        <div class="product">
+            <img src="https://via.placeholder.com/200">
+            <h3>${item.name}</h3>
+            <p>${item.price}</p>
+            <button onclick="order('${item.name}')">Order</button>
+        </div>
+        `;
+    });
+}
+
+function filter(brand) {
+    if(brand === "all") {
+        display(items);
+    } else {
+        display(items.filter(i => i.brand === brand));
+    }
+}
+
+function order(product) {
+    let msg = "Hello, I want to order: " + product;
+    window.open("https://wa.me/" + phone + "?text=" + encodeURIComponent(msg));
+}
+
+display(items);
+</script>
+
+</body>
+</html>
